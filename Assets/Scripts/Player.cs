@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         // updateCamera();
         movement();
@@ -104,7 +104,7 @@ public class Player : MonoBehaviour
         }
         if (steering > -steeringRange * 100 && steering < steeringRange * 100)
         {
-            steering = steering + Input.GetAxis("Horizontal");
+            steering = steering + Input.GetAxis("Horizontal") * 8;
         }
     }
 }
