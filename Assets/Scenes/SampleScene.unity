@@ -363,6 +363,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2917737133391613688, guid: 7e5e5a31154ac43499e9dd39b1ab156b, type: 3}
+      propertyPath: deathZone
+      value: 
+      objectReference: {fileID: 1820135515595263604, guid: 14ba6a8aa6ad2054781dbead7d8eb8a5, type: 3}
     - target: {fileID: 2979846034175310873, guid: 7e5e5a31154ac43499e9dd39b1ab156b, type: 3}
       propertyPath: m_Name
       value: Cross
@@ -462,6 +466,7 @@ MonoBehaviour:
   zPos: 0
   xPos: 0
   lastTile: {fileID: 0}
+  barrier: {fileID: 1501220235690658943, guid: 56398a74b337d8448b8422cd7900b724, type: 3}
 --- !u!4 &890791249
 Transform:
   m_ObjectHideFlags: 0
@@ -641,6 +646,8 @@ MonoBehaviour:
   player: {fileID: 1006239133}
   camera: {fileID: 963194227}
   trackController: {fileID: 890791248}
+  checkZ: 0
+  checkX: 0
 --- !u!1001 &1018602527
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -656,6 +663,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3443414042880754640, guid: 73e0edbcd6c04164f941f6b1c7a10012, type: 3}
+      propertyPath: deathZone
+      value: 
+      objectReference: {fileID: 1820135515595263604, guid: 14ba6a8aa6ad2054781dbead7d8eb8a5, type: 3}
     - target: {fileID: 4520067531723264044, guid: 73e0edbcd6c04164f941f6b1c7a10012, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -816,6 +827,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -3311233402428390446, guid: 1936c8f21d0847b4d9ead26471b8764b, type: 3}
+      propertyPath: deathZone
+      value: 
+      objectReference: {fileID: 1820135515595263604, guid: 14ba6a8aa6ad2054781dbead7d8eb8a5, type: 3}
     - target: {fileID: 1479717224669169334, guid: 1936c8f21d0847b4d9ead26471b8764b, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -877,6 +892,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8107232088339067857, guid: b3d1e6ef97081c7479887fa01977a3ec, type: 3}
+      propertyPath: deathZone
+      value: 
+      objectReference: {fileID: 1820135515595263604, guid: 14ba6a8aa6ad2054781dbead7d8eb8a5, type: 3}
     - target: {fileID: 3429835755198710031, guid: b3d1e6ef97081c7479887fa01977a3ec, type: 3}
       propertyPath: m_Name
       value: T-Cross
@@ -949,6 +968,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -6425876483367570537, guid: bf4124581db8d8546bf301c28acd1f94, type: 3}
+      propertyPath: deathZone
+      value: 
+      objectReference: {fileID: 1820135515595263604, guid: 14ba6a8aa6ad2054781dbead7d8eb8a5, type: 3}
     - target: {fileID: 4228138232137467901, guid: bf4124581db8d8546bf301c28acd1f94, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -1021,6 +1044,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2608949645175304842, guid: aa09cbfb9777b29499f1f48ac9399ed8, type: 3}
+      propertyPath: deathZone
+      value: 
+      objectReference: {fileID: 1820135515595263604, guid: 14ba6a8aa6ad2054781dbead7d8eb8a5, type: 3}
     - target: {fileID: 3377959274903713600, guid: aa09cbfb9777b29499f1f48ac9399ed8, type: 3}
       propertyPath: m_Name
       value: ShortCurve
@@ -1123,6 +1150,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -6731250676128383808, guid: 0940f058fd3628a42a791a6c68826d17, type: 3}
+      propertyPath: deathZone
+      value: 
+      objectReference: {fileID: 1820135515595263604, guid: 14ba6a8aa6ad2054781dbead7d8eb8a5, type: 3}
     - target: {fileID: 1445750979731399485, guid: 0940f058fd3628a42a791a6c68826d17, type: 3}
       propertyPath: m_Name
       value: Slalom
