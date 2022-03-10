@@ -7,10 +7,10 @@ public class Player : MonoBehaviour
 {
 
 
-    [SerializeField] private Rigidbody rb;
+    [SerializeField] private Rigidbody rigidBody;
     [SerializeField] private Transform car;
 
-    private float acceleration;
+    [SerializeField] private float acceleration;
     private float steering;
     private float steeringRange = 0.5f;
     private float maxSpeed = 50;
@@ -55,7 +55,7 @@ public class Player : MonoBehaviour
             steer();
             Vector3 rotation = new Vector3(0, steering, 0);
             Quaternion deltaRotation = Quaternion.Euler(rotation * Time.deltaTime);
-            rb.MoveRotation(rb.rotation * deltaRotation);
+            rigidBody.MoveRotation(rigidBody.rotation * deltaRotation);
         }
         this.car.transform.localRotation = transform.localRotation;
         this.car.transform.localPosition = transform.localPosition;
