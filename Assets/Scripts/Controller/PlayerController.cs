@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
 
     public float checkZ;
     public float checkX;
-        
+
 
     void Start()
     {
@@ -23,7 +23,8 @@ public class PlayerController : MonoBehaviour
         Quaternion.Euler(0, 180, 0));
     }
 
-    public void setDebug(){
+    public void setDebug()
+    {
         player.GetComponent<Rigidbody>().useGravity = false;
         player.transform.SetPositionAndRotation(
             new Vector3((manager.getMapSize() / 2) * tileSize + 15, 100, (manager.getMapSize() / 2) * tileSize + 15),
@@ -33,43 +34,50 @@ public class PlayerController : MonoBehaviour
             Quaternion.Euler(90, 180, 0));
     }
 
-    void Update(){
-        // Debug.Log(this.transform.localPosition.z);
+    void Update()
+    {
+        if(this.transform.localPosition.y < - 2){
+            manager.restart();
+        }
         checkZ = this.transform.localPosition.z % tileSize;
         checkX = this.transform.localPosition.x % tileSize;
-        if(flag){
-            if(checkZ <= activationRange){
+        if (flag)
+        {
+            if (checkZ <= activationRange)
+            {
                 flag = false;
                 trackController.advance(0);
-                Debug.Log("FALSE");
             }
-            else if(checkX <= activationRange){
+            else if (checkX <= activationRange)
+            {
                 flag = false;
                 trackController.advance(1);
-                Debug.Log("FALSE");
             }
-            else if(checkZ >= tileSize - activationRange){
+            else if (checkZ >= tileSize - activationRange)
+            {
                 flag = false;
                 trackController.advance(2);
-                Debug.Log("FALSE");
             }
-            else if(checkX >= tileSize - activationRange){
+            else if (checkX >= tileSize - activationRange)
+            {
                 flag = false;
                 trackController.advance(3);
-                Debug.Log("FALSE");
             }
         }
-        else{
-            if(checkZ < tileSize - activationRange && checkZ > activationRange && checkX < tileSize - activationRange && checkX > activationRange){
-                flag = true;
-                Debug.Log("TRUE");
-            }
-        }
-        if (Input.GetKeyUp(KeyCode.Space))
+        else
         {
-            Debug.Log(checkZ + " < " + tileSize + " - " + activationRange + " && " + checkZ + " > " + activationRange
-                             + " && " + checkX + " < " + tileSize + " - " + activationRange + " && " + checkX + " > " + activationRange);
-            Debug.Log((checkZ < tileSize - activationRange) + "|" + (checkZ > activationRange) + "|" + (checkX < tileSize - activationRange) + "|" + (checkX > activationRange));
+            if (checkZ < tileSize - activationRange && checkZ > activationRange && checkX < tileSize - activationRange && checkX > activationRange)
+            {
+                flag = true;
+            }
         }
+    }
+
+    public void restart()
+    {
+        player.restart();
+        player.transform.SetPositionAndRotation(
+        new Vector3((manager.getMapSize() / 2) * tileSize + 15, 0, (manager.getMapSize() / 2) * tileSize + 15),
+        Quaternion.Euler(0, 180, 0));
     }
 }

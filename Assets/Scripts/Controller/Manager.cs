@@ -20,4 +20,9 @@ public class Manager : MonoBehaviour
     {
         return mapSize;
     }
+
+    public void restart(){
+        playerController.restart();
+        trackController.restart();
+    }
 }

@@ -31,7 +31,8 @@ public abstract class Tile : MonoBehaviour
         this.facing = facing;
     }
 
-    public int getFacing(){
+    public int getFacing()
+    {
         return facing;
     }
 }

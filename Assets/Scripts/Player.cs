@@ -107,4 +107,9 @@ public class Player : MonoBehaviour
             steering = steering + Input.GetAxis("Horizontal") * 8;
         }
     }
+
+    public void restart(){
+        this.steering = 0;
+        this.acceleration = 0;
+    }
 }

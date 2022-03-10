@@ -9,7 +9,7 @@ public class TrackController : MonoBehaviour
     [SerializeField] private int zPos;
     [SerializeField] private int xPos;
     [SerializeField] private Tile lastTile;
-    [SerializeField] private Tile[,] realTrack;
+    [SerializeField] private Tile[,] track;
     [SerializeField] private GameObject barrier;
 
     void Start()
@@ -17,17 +17,16 @@ public class TrackController : MonoBehaviour
         createBarrier();
         zPos = manager.getMapSize() / 2;
         xPos = manager.getMapSize() / 2;
-        realTrack = new Tile[manager.getMapSize(), manager.getMapSize()];
+        track = new Tile[manager.getMapSize(), manager.getMapSize()];
         lastTile = advancementController.placeInitialCross();
-        realTrack[zPos, xPos] = lastTile;
-        instantiateAndActivate(realTrack[zPos, xPos]);
+        track[zPos, xPos] = instantiateTile(lastTile);
     }
 
     void Update()
     {
         if (Input.GetKeyUp(KeyCode.P))
         {
-            Debug.Log(realTrack[zPos, xPos]);
+            Debug.Log(track[zPos, xPos]);
             // printTrack();
         }
         else if (Input.GetKeyUp(KeyCode.UpArrow))
@@ -104,9 +103,9 @@ public class TrackController : MonoBehaviour
         }
         if (next)
         {
-            if (realTrack[zPos, xPos] != null)
+            if (track[zPos, xPos] != null)
             {
-                realTrack[zPos, xPos].transform.gameObject.SetActive(false);
+                Destroy(track[zPos, xPos].gameObject);
             }
             Tile nextTile = advancementController.placeNextTile(direction);
             if ((direction == 0 && zPos == 0) ||
@@ -121,16 +120,10 @@ public class TrackController : MonoBehaviour
                 }
             }
             lastTile = nextTile;
-            instantiateAndActivate(lastTile);
+            track[zPos, xPos] = instantiateTile(lastTile);
         }
     }
 
-    private void instantiateAndActivate(Tile tile)
-    {
-        tile.transform.gameObject.SetActive(true);
-        Quaternion rotation = Quaternion.Euler(0, (tile.getFacing() + 1) * 90, 0);
-        realTrack[zPos, xPos] = Instantiate(tile, new Vector3(xPos * 30 + 15, 0, zPos * 30 + 15), rotation);
-    }
 
     private void createBarrier()
     {
@@ -141,7 +134,8 @@ public class TrackController : MonoBehaviour
                 int x = manager.getMapSize();
                 float rotation = 180;
                 int add = 30;
-                if(i == 0){
+                if (i == 0)
+                {
                     x = 0;
                     rotation = 0;
                     add = 0;
@@ -156,7 +150,8 @@ public class TrackController : MonoBehaviour
                 int z = manager.getMapSize();
                 float rotation = 90;
                 int add = 0;
-                if(i == 1){
+                if (i == 1)
+                {
                     z = 0;
                     rotation = 270;
                     add = 30;
@@ -167,5 +162,31 @@ public class TrackController : MonoBehaviour
                 }
             }
         }
+    }
+
+    private Tile instantiateTile(Tile t)
+    {
+        Quaternion rotation = Quaternion.Euler(0, (t.getFacing() + 1) * 90, 0);
+        Vector3 v3Tile = new Vector3(xPos * 30 + 15, 0, zPos * 30 + 15);
+        Tile tile = Instantiate(t, v3Tile, rotation);
+        tile.gameObject.SetActive(true);
+        return tile;
+    }
+
+    public void restart()
+    {
+        for (int i = 0; i < manager.getMapSize(); i++)
+        {
+            for (int j = 0; j < manager.getMapSize(); j++)
+            {
+                if(track[i, j] != null){
+                    Destroy(track[i, j].gameObject);
+                }
+            }
+        }
+        xPos = manager.getMapSize() / 2;
+        zPos = manager.getMapSize() / 2;
+        lastTile = advancementController.placeInitialCross();
+        track[zPos, xPos] = instantiateTile(lastTile);
     }
 }
