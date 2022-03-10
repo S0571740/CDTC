@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
 
     [SerializeField] private float acceleration;
     private float steering;
-    private float steeringRange = 0.5f;
+    private float steeringRange = 1f;
     private float maxSpeed = 50;
 
 
