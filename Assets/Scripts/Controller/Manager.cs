@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class Manager : MonoBehaviour
 {
-    private int mapSize = 3;
+    private int mapSize = 51;
     [SerializeField] AdvancementController advancementController;
     [SerializeField] PlayerController playerController;
     [SerializeField] TrackController trackController;
+    [SerializeField] UIController uiController;
     [SerializeField] bool debug = false;
+    private Tile nextTile;
 
     void Start(){
         if(debug){
@@ -24,5 +26,19 @@ public class Manager : MonoBehaviour
     public void restart(){
         playerController.restart();
         trackController.restart();
+    }
+
+    public void prepareNextTile(){
+        nextTile = advancementController.getNextTile();
+        uiController.updatePreview(nextTile);
+    }
+
+    public void advance(int direction){
+        Debug.Log(direction);
+        trackController.advance(direction, nextTile);
+    }
+
+    public Tile getNextTile(){
+        return this.nextTile;
     }
 }

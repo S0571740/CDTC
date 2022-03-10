@@ -31,19 +31,19 @@ public class TrackController : MonoBehaviour
         }
         else if (Input.GetKeyUp(KeyCode.UpArrow))
         {
-            advance(0);
+            manager.advance(0);
         }
         else if (Input.GetKeyUp(KeyCode.RightArrow))
         {
-            advance(1);
+            manager.advance(1);
         }
         else if (Input.GetKeyUp(KeyCode.DownArrow))
         {
-            advance(2);
+            manager.advance(2);
         }
         else if (Input.GetKeyUp(KeyCode.LeftArrow))
         {
-            advance(3);
+            manager.advance(3);
         }
     }
 
@@ -66,13 +66,15 @@ public class TrackController : MonoBehaviour
     //     Debug.Log(finalLine);
     // }
 
-    public void advance(int direction)
+    public void advance(int direction, Tile nextTile)
     {
         bool next = false;
         if (direction % 2 == 0)
         {
+            lastTile.getExits().ForEach(exit => Debug.Log("Exits: " + exit));
             if (lastTile.getExits().Contains(direction))
             {
+
                 if (direction > 1 && zPos < manager.getMapSize() - 1)
                 {
                     zPos++;
@@ -107,28 +109,18 @@ public class TrackController : MonoBehaviour
             {
                 Destroy(track[zPos, xPos].gameObject);
             }
-            Tile nextTile = advancementController.placeNextTile(direction);
-            if ((direction == 0 && zPos == 0) ||
-                (direction == 1 && xPos == 0) ||
-                (direction == 2 && zPos == manager.getMapSize() - 1) ||
-                (direction == 3 && xPos == manager.getMapSize() - 1)
-                )
-            {
-                while (!nextTile.getExits().Exists(exit => exit != direction))
-                {
-                    nextTile = advancementController.placeNextTile(direction);
-                }
-            }
-            lastTile = nextTile;
-            track[zPos, xPos] = instantiateTile(lastTile);
+            track[zPos, xPos] = instantiateTile(advancementController.placeNextTile(direction, nextTile));
         }
     }
 
 
     private void createBarrier()
     {
+        GameObject root = new GameObject("Barriers");
         for (int i = 0; i < 4; i++)
         {
+            GameObject parent = new GameObject("Barriers" + i);
+            parent.transform.parent = root.transform;
             if (i % 2 == 0)
             {
                 int x = manager.getMapSize();
@@ -142,7 +134,9 @@ public class TrackController : MonoBehaviour
                 }
                 for (int j = 0; j < manager.getMapSize(); j++)
                 {
-                    Instantiate(barrier, new Vector3(x * 30, 0, j * 30 + add), Quaternion.Euler(0, rotation, 0)).gameObject.SetActive(true);
+                    GameObject go = Instantiate(barrier, new Vector3(x * 30, 0, j * 30 + add), Quaternion.Euler(0, rotation, 0)).gameObject;
+                    go.SetActive(true);
+                    go.transform.parent = parent.transform;
                 }
             }
             else
@@ -158,7 +152,9 @@ public class TrackController : MonoBehaviour
                 }
                 for (int j = 0; j < manager.getMapSize(); j++)
                 {
-                    Instantiate(barrier, new Vector3(j * 30 + add, 0, z * 30), Quaternion.Euler(0, rotation, 0)).gameObject.SetActive(true);
+                    GameObject go = Instantiate(barrier, new Vector3(j * 30 + add, 0, z * 30), Quaternion.Euler(0, rotation, 0)).gameObject;
+                    go.SetActive(true);
+                    go.transform.parent = parent.transform;
                 }
             }
         }
@@ -170,6 +166,8 @@ public class TrackController : MonoBehaviour
         Vector3 v3Tile = new Vector3(xPos * 30 + 15, 0, zPos * 30 + 15);
         Tile tile = Instantiate(t, v3Tile, rotation);
         tile.gameObject.SetActive(true);
+        lastTile = tile;
+        manager.prepareNextTile();
         return tile;
     }
 

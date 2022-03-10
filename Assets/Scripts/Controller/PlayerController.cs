@@ -46,22 +46,22 @@ public class PlayerController : MonoBehaviour
             if (checkZ <= activationRange)
             {
                 flag = false;
-                trackController.advance(0);
+                manager.advance(0);
             }
             else if (checkX <= activationRange)
             {
                 flag = false;
-                trackController.advance(1);
+                manager.advance(1);
             }
             else if (checkZ >= tileSize - activationRange)
             {
                 flag = false;
-                trackController.advance(2);
+                manager.advance(2);
             }
             else if (checkX >= tileSize - activationRange)
             {
                 flag = false;
-                trackController.advance(3);
+                manager.advance(3);
             }
         }
         else

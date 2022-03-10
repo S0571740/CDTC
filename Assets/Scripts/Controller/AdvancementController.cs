@@ -6,6 +6,7 @@ public class AdvancementController : MonoBehaviour
 {
 
     [SerializeField] private List<Tile> tiles;
+    [SerializeField] private Cross cross;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,15 +19,19 @@ public class AdvancementController : MonoBehaviour
         
     }
 
-    public Tile placeNextTile(int facing){
-        Tile nextTile = tiles[Random.Range(0, tiles.Count)];
+    public Tile placeNextTile(int facing, Tile nextTile){
         nextTile.placeFacing(facing);
         return nextTile;
     }
 
     public Tile placeInitialCross(){
-        Tile cross = tiles.Find(tile => tile.name == "Cross");
         cross.placeFacing(0);
         return cross;
+    }
+
+    public Tile getNextTile(){
+        Tile nextTile = tiles[Random.Range(0, tiles.Count)];
+        nextTile.placeFacing(0);
+        return nextTile;
     }
 }
