@@ -10,9 +10,11 @@ public class TrackController : MonoBehaviour
     [SerializeField] private int xPos;
     [SerializeField] private Tile lastTile;
     [SerializeField] private Tile[,] realTrack;
+    [SerializeField] private GameObject barrier;
 
     void Start()
     {
+        createBarrier();
         zPos = manager.getMapSize() / 2;
         xPos = manager.getMapSize() / 2;
         realTrack = new Tile[manager.getMapSize(), manager.getMapSize()];
@@ -128,5 +130,42 @@ public class TrackController : MonoBehaviour
         tile.transform.gameObject.SetActive(true);
         Quaternion rotation = Quaternion.Euler(0, (tile.getFacing() + 1) * 90, 0);
         realTrack[zPos, xPos] = Instantiate(tile, new Vector3(xPos * 30 + 15, 0, zPos * 30 + 15), rotation);
+    }
+
+    private void createBarrier()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            if (i % 2 == 0)
+            {
+                int x = manager.getMapSize();
+                float rotation = 180;
+                int add = 30;
+                if(i == 0){
+                    x = 0;
+                    rotation = 0;
+                    add = 0;
+                }
+                for (int j = 0; j < manager.getMapSize(); j++)
+                {
+                    Instantiate(barrier, new Vector3(x * 30, 0, j * 30 + add), Quaternion.Euler(0, rotation, 0)).gameObject.SetActive(true);
+                }
+            }
+            else
+            {
+                int z = manager.getMapSize();
+                float rotation = 90;
+                int add = 0;
+                if(i == 1){
+                    z = 0;
+                    rotation = 270;
+                    add = 30;
+                }
+                for (int j = 0; j < manager.getMapSize(); j++)
+                {
+                    Instantiate(barrier, new Vector3(j * 30 + add, 0, z * 30), Quaternion.Euler(0, rotation, 0)).gameObject.SetActive(true);
+                }
+            }
+        }
     }
 }
