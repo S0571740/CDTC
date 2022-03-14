@@ -42,7 +42,7 @@ public class Manager : MonoBehaviour
     public void advance(int direction){
         int score = nextTile.getScore();
         uiController.updateScore(score);
-        Debug.Log(direction);
+        playerController.addSpeed(score);
         trackController.advance(direction, nextTile);
     }
 

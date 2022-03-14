@@ -80,4 +80,8 @@ public class PlayerController : MonoBehaviour
         new Vector3((manager.getMapSize() / 2) * tileSize + 15, 0, (manager.getMapSize() / 2) * tileSize + 15),
         Quaternion.Euler(0, 180, 0));
     }
+
+    public void addSpeed(int speed){
+        player.updateMinSpeed(speed / 100f);
+    }
 }

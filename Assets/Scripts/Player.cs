@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     private float steering;
     private float steeringRange = 1f;
     private float maxSpeed = 50;
+    private float minSpeed = 0;
 
 
     // [SerializeField] private GameObject camera; 
@@ -27,13 +28,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        // updateCamera();
         movement();
-    }
-
-    private void updateCamera()
-    {
-        // camera.transform.position = this.transform.localPosition;
     }
 
     private void movement()
@@ -70,7 +65,7 @@ public class Player : MonoBehaviour
 
     private void brake()
     {
-        if (acceleration > 0)
+        if (acceleration > minSpeed)
         {
             acceleration = acceleration - 0.1f;
         }
@@ -78,13 +73,13 @@ public class Player : MonoBehaviour
 
     private void engineBrake()
     {
-        if (acceleration > 0)
+        if (acceleration > minSpeed)
         {
             acceleration = acceleration - 0.01f;
         }
-        else if (acceleration < 0)
+        else if (acceleration < minSpeed)
         {
-            acceleration = 0;
+            acceleration = minSpeed;
         }
     }
 
@@ -111,5 +106,14 @@ public class Player : MonoBehaviour
     public void restart(){
         this.steering = 0;
         this.acceleration = 0;
+        this.minSpeed = 0;
+        this.maxSpeed = 50;
+    }
+
+    public void updateMinSpeed(float additionSpeed){
+        minSpeed += additionSpeed;
+        if(minSpeed + additionSpeed > maxSpeed){
+            maxSpeed = minSpeed;
+        }
     }
 }
