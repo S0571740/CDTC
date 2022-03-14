@@ -71,7 +71,6 @@ public class TrackController : MonoBehaviour
         bool next = false;
         if (direction % 2 == 0)
         {
-            lastTile.getExits().ForEach(exit => Debug.Log("Exits: " + exit));
             if (lastTile.getExits().Contains(direction))
             {
 

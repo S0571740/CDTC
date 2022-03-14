@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Manager : MonoBehaviour
 {
-    private int mapSize = 51;
+    private int mapSize = 11;
     [SerializeField] AdvancementController advancementController;
     [SerializeField] PlayerController playerController;
     [SerializeField] TrackController trackController;
