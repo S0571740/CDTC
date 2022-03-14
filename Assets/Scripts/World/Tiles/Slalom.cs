@@ -4,13 +4,10 @@ using UnityEngine;
 
 public class Slalom : Tile
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private int score = 0;
 
-    public override char getCharacter(){
+    public override char getCharacter()
+    {
         return CharacterTranslator.CROSS;
     }
 
@@ -20,5 +17,10 @@ public class Slalom : Tile
         List<int> exits = new List<int>();
         exits.Add(facing);
         setExits(exits);
+    }
+    
+    public override int getScore()
+    {
+        return this.score;
     }
 }

@@ -26,6 +26,7 @@ public class Manager : MonoBehaviour
     public void restart(){
         playerController.restart();
         trackController.restart();
+        uiController.restart(nextTile);
     }
 
     public void prepareNextTile(){
@@ -34,6 +35,8 @@ public class Manager : MonoBehaviour
     }
 
     public void advance(int direction){
+        int score = nextTile.getScore();
+        uiController.updateScore(score);
         Debug.Log(direction);
         trackController.advance(direction, nextTile);
     }

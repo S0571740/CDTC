@@ -4,11 +4,7 @@ using UnityEngine;
 
 public class Cross : Tile
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
+    private int score = 10;
 
     public override char getCharacter()
     {
@@ -23,5 +19,10 @@ public class Cross : Tile
         exits.Add((facing + 0 + 4) % 4);
         exits.Add((facing + 1 + 4) % 4);
         setExits(exits);
+    }
+    
+    public override int getScore()
+    {
+        return this.score;
     }
 }

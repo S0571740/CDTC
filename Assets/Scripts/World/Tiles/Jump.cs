@@ -4,11 +4,7 @@ using UnityEngine;
 
 public class Jump : Tile
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
+    private int score = 30;
 
     public override char getCharacter(){
         if(facing % 2 == 0){
@@ -23,5 +19,10 @@ public class Jump : Tile
         List<int> exits = new List<int>();
         exits.Add(facing);
         setExits(exits);
+    }
+
+    public override int getScore()
+    {
+        return this.score;
     }
 }

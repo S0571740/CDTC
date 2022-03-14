@@ -4,11 +4,7 @@ using UnityEngine;
 
 public class ShortRightCurve : Tile
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private int score = 40;
 
     public override char getCharacter(){
         if (facing == 0)
@@ -32,5 +28,10 @@ public class ShortRightCurve : Tile
         List<int> exits = new List<int>();
         exits.Add((facing + 1 + 4) % 4);
         setExits(exits);
+    }
+
+    public override int getScore()
+    {
+        return this.score;
     }
 }

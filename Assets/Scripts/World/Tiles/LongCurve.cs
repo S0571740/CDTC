@@ -4,11 +4,7 @@ using UnityEngine;
 
 public class LongCurve : Tile
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private int score = 0;
 
     public override char getCharacter(){
         return CharacterTranslator.CROSS;
@@ -20,5 +16,10 @@ public class LongCurve : Tile
         List<int> exits = new List<int>();
         exits.Add((facing - 1 + 4) % 4);
         setExits(exits);
+    }
+    
+    public override int getScore()
+    {
+        return this.score;
     }
 }

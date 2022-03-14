@@ -35,4 +35,6 @@ public abstract class Tile : MonoBehaviour
     {
         return facing;
     }
+
+    public abstract int getScore();
 }

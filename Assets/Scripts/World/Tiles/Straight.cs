@@ -4,11 +4,7 @@ using UnityEngine;
 
 public class Straight : Tile
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private int score = 20;
 
     public override char getCharacter()
     {
@@ -25,5 +21,10 @@ public class Straight : Tile
         List<int> exits = new List<int>();
         exits.Add(facing);
         setExits(exits);
+    }
+
+    public override int getScore()
+    {
+        return this.score;
     }
 }
