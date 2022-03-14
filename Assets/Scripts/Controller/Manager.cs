@@ -9,12 +9,17 @@ public class Manager : MonoBehaviour
     [SerializeField] PlayerController playerController;
     [SerializeField] TrackController trackController;
     [SerializeField] UIController uiController;
+    [SerializeField] GameObject audioController;
     [SerializeField] bool debug = false;
+    [SerializeField] bool audioOnOff = false;
     private Tile nextTile;
 
     void Start(){
         if(debug){
             playerController.setDebug();
+        }
+        if(!audioOnOff){
+            audioController.GetComponent<AudioSource>().Stop();
         }
     }
     // Start is called before the first frame update
