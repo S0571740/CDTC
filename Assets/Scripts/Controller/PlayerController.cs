@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] Manager manager;
+    [SerializeField] GameManager manager;
     [SerializeField] Player player;
     [SerializeField] Camera camera;
     [SerializeField] TrackController trackController;
@@ -83,5 +83,9 @@ public class PlayerController : MonoBehaviour
 
     public void addSpeed(int speed){
         player.updateMinSpeed(speed / 100f);
+    }
+
+    public float getAcceleration(){
+        return player.getAcceleration();
     }
 }
