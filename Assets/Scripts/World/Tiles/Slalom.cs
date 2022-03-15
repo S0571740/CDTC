@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class Slalom : Tile
 {
-    private int score = 0;
+    private int score = 40;
 
     public override char getCharacter()
     {
-        return CharacterTranslator.CROSS;
+        if (facing % 2 == 0)
+        {
+            return CharacterTranslator.TOP_BOTTOM;
+        }
+        return CharacterTranslator.LEFT_RIGHT;
     }
 
     public override void placeFacing(int facing)
