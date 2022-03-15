@@ -12,12 +12,13 @@ public class Player : MonoBehaviour
 
     [SerializeField] private float acceleration;
     private float steering;
-    private float steeringRange = 1f;
+    private float steeringRange = 90f;
     private float maxSpeed = 50;
     private float minSpeed = 0;
+    private float servoStabilizer = 2;
+    private float debugSpeed = 1;
 
 
-    // [SerializeField] private GameObject camera; 
     // Start is called before the first frame update
     void Start()
     {
@@ -43,7 +44,7 @@ public class Player : MonoBehaviour
         }
 
         engineBrake();
-        transform.Translate(Vector3.forward * acceleration * Time.deltaTime);
+        transform.Translate(Vector3.forward * acceleration * Time.deltaTime * debugSpeed);
 
         if (acceleration > 0)
         {
@@ -58,8 +59,9 @@ public class Player : MonoBehaviour
 
     private void accelerate()
     {
-        if(acceleration < maxSpeed){
-            acceleration = acceleration + 0.05f;
+        if (acceleration < maxSpeed)
+        {
+            acceleration = acceleration + 0.1f;
         }
     }
 
@@ -67,7 +69,7 @@ public class Player : MonoBehaviour
     {
         if (acceleration > minSpeed)
         {
-            acceleration = acceleration - 0.1f;
+            acceleration = acceleration - 0.3f;
         }
     }
 
@@ -75,7 +77,7 @@ public class Player : MonoBehaviour
     {
         if (acceleration > minSpeed)
         {
-            acceleration = acceleration - 0.01f;
+            acceleration = acceleration - 0.05f;
         }
         else if (acceleration < minSpeed)
         {
@@ -85,35 +87,45 @@ public class Player : MonoBehaviour
 
     private void steer()
     {
-        if (steering < -steeringRange)
+        float add = Input.GetAxis("Horizontal") * 5;
+        if (steering + add <= steeringRange && steering + add >= -steeringRange)
         {
-            steering = steering + steeringRange;
+            steering = steering + add;
         }
-        else if (steering > +steeringRange)
+        if (add == 0)
         {
-            steering = steering - steeringRange;
-        }
-        else if (steering != 0 && steering > -steeringRange && steering < steeringRange)
-        {
-            steering = 0;
-        }
-        if (steering > -steeringRange * 100 && steering < steeringRange * 100)
-        {
-            steering = steering + Input.GetAxis("Horizontal") * 8;
+            if (steering > 0)
+            {
+                steering = steering - servoStabilizer;
+            }
+            else if (steering < 0)
+            {
+                steering = steering + servoStabilizer;
+            }
+            if(steering > -servoStabilizer && steering < servoStabilizer){
+                steering = 0;
+            }
         }
     }
 
-    public void restart(){
+    public void restart()
+    {
         this.steering = 0;
         this.acceleration = 0;
         this.minSpeed = 0;
         this.maxSpeed = 50;
     }
 
-    public void updateMinSpeed(float additionSpeed){
+    public void updateMinSpeed(float additionSpeed)
+    {
         minSpeed += additionSpeed;
-        if(minSpeed + additionSpeed > maxSpeed){
+        if (minSpeed + additionSpeed > maxSpeed)
+        {
             maxSpeed = minSpeed;
         }
+    }
+
+    public float getAcceleration(){
+        return this.acceleration;
     }
 }
