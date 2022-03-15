@@ -11,13 +11,16 @@ public class TrackController : MonoBehaviour
     [SerializeField] private Tile lastTile;
     [SerializeField] private Tile[,] track;
     [SerializeField] private GameObject barrier;
+    private GameObject barriers;
+    private int oldMapSize;
 
     void Start()
     {
+        this.oldMapSize = manager.getMapSize();
         createBarrier();
         zPos = manager.getMapSize() / 2;
         xPos = manager.getMapSize() / 2;
-        track = new Tile[manager.getMapSize(), manager.getMapSize()];
+        track = new Tile[oldMapSize, oldMapSize];
         lastTile = advancementController.placeInitialCross();
         track[zPos, xPos] = instantiateTile(lastTile);
     }
@@ -95,11 +98,14 @@ public class TrackController : MonoBehaviour
 
     private void createBarrier()
     {
-        GameObject root = new GameObject("Barriers");
+        if(barriers != null){
+            Destroy(barriers);
+        }
+        barriers = new GameObject("Barriers");
         for (int i = 0; i < 4; i++)
         {
             GameObject parent = new GameObject("Barriers" + i);
-            parent.transform.parent = root.transform;
+            parent.transform.parent = barriers.transform;
             if (i % 2 == 0)
             {
                 int x = manager.getMapSize();
@@ -152,18 +158,21 @@ public class TrackController : MonoBehaviour
 
     public void restart()
     {
-        for (int i = 0; i < manager.getMapSize(); i++)
+        for (int i = 0; i < oldMapSize; i++)
         {
-            for (int j = 0; j < manager.getMapSize(); j++)
+            for (int j = 0; j < oldMapSize; j++)
             {
                 if(track[i, j] != null){
                     Destroy(track[i, j].gameObject);
                 }
             }
         }
+        track = new Tile[manager.getMapSize(), manager.getMapSize()];
+        createBarrier();
         xPos = manager.getMapSize() / 2;
         zPos = manager.getMapSize() / 2;
         lastTile = advancementController.placeInitialCross();
         track[zPos, xPos] = instantiateTile(lastTile);
+        this.oldMapSize = manager.getMapSize();
     }
 }
