@@ -5,7 +5,7 @@ using UnityEngine;
 public class TrackController : MonoBehaviour
 {
     [SerializeField] private AdvancementController advancementController;
-    [SerializeField] private Manager manager;
+    [SerializeField] private GameManager manager;
     [SerializeField] private int zPos;
     [SerializeField] private int xPos;
     [SerializeField] private Tile lastTile;
@@ -24,27 +24,7 @@ public class TrackController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.P))
-        {
-            Debug.Log(track[zPos, xPos]);
-            // printTrack();
-        }
-        else if (Input.GetKeyUp(KeyCode.UpArrow))
-        {
-            manager.advance(0);
-        }
-        else if (Input.GetKeyUp(KeyCode.RightArrow))
-        {
-            manager.advance(1);
-        }
-        else if (Input.GetKeyUp(KeyCode.DownArrow))
-        {
-            manager.advance(2);
-        }
-        else if (Input.GetKeyUp(KeyCode.LeftArrow))
-        {
-            manager.advance(3);
-        }
+        
     }
 
     // private void printTrack()
