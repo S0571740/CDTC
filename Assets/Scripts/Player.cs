@@ -116,12 +116,12 @@ public class Player : MonoBehaviour
         this.maxSpeed = 50;
     }
 
-    public void updateMinSpeed(float additionSpeed)
+    public void updateMinSpeed(float minSpeed)
     {
-        minSpeed += additionSpeed;
-        if (minSpeed + additionSpeed > maxSpeed)
+        this.minSpeed = minSpeed;
+        if (this.minSpeed > maxSpeed)
         {
-            maxSpeed = minSpeed;
+            maxSpeed = this.minSpeed;
         }
     }
 

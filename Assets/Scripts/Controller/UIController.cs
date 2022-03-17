@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
@@ -21,11 +20,17 @@ public class UIController : MonoBehaviour
     [SerializeField] private Button restartButton;
     [SerializeField] private Button resumeButton;
     [SerializeField] private Button startButton;
+    [SerializeField] private List<Tile> tileList;
+    [SerializeField] private List<Sprite> spriteList;
 
     private int score = 0;
+    private Dictionary<Tile, Sprite> tileSpriteDictionary = new Dictionary<Tile, Sprite>();
 
     void Start()
     {
+        for(int i = 0; i < tileList.Count; i++){
+            tileSpriteDictionary.Add(tileList[i], spriteList.Find(sprite => sprite.name.Contains(tileList[i].name)));
+        }
         mapSizeLabel.text = mapSizeSlider.value.ToString();
         startButton.gameObject.SetActive(true);
         resumeButton.gameObject.SetActive(false);
@@ -34,14 +39,12 @@ public class UIController : MonoBehaviour
 
     public void updatePreview(Tile nextTile)
     {
-        tileText.text = nextTile.getCharacter().ToString();
-        // Texture2D t2d = AssetPreview.GetAssetPreview(nextTile.gameObject);
-        // nextTileImage.sprite = Sprite.Create(t2d, new Rect(0, 0, t2d.width, t2d.height), new Vector2(0, 0));
+        nextTileImage.sprite = tileSpriteDictionary[nextTile];
     }
 
     public void updateScore(int score)
     {
-        this.score += score;
+        this.score = score;
         scoreText.text = this.score.ToString();
     }
 
@@ -84,8 +87,9 @@ public class UIController : MonoBehaviour
         Application.Quit();
     }
 
-    public void setSpeedoMeterText(float speed){
-        speedoMeterText.text = ((int) (speed / 3 * 10)).ToString();
+    public void setSpeedoMeterText(float speed)
+    {
+        speedoMeterText.text = ((int)(speed / 3 * 10)).ToString();
         speedoMeterNeedle.rotation = Quaternion.Euler(0, 0, 90 - speed / 3 * 10);
     }
 }

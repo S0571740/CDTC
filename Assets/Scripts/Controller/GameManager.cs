@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] bool pause = false;
     [SerializeField] bool initialized = false;
 
+    private int score = 0;
     private Tile nextTile;
 
     void Start()
@@ -29,7 +30,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void FixedUpdate(){
+    void FixedUpdate()
+    {
         uiController.setSpeedoMeterText(playerController.getAcceleration());
     }
 
@@ -65,9 +67,7 @@ public class GameManager : MonoBehaviour
 
     public void advance(int direction)
     {
-        int score = nextTile.getScore();
-        uiController.updateScore(score);
-        playerController.addSpeed(score);
+        updateScore(nextTile.getScore());
         trackController.advance(direction, nextTile);
     }
 
@@ -108,7 +108,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public bool getDebug(){
+    public bool getDebug()
+    {
         return debug;
+    }
+
+    public void updateScore(int score)
+    {
+        this.score += score;
+        uiController.updateScore(score);
+        playerController.addSpeed(score);
     }
 }
