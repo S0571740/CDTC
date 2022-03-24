@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] GameManager manager;
-    [SerializeField] Player player;
-    [SerializeField] Camera camera;
-    [SerializeField] TrackController trackController;
-    private bool flag = true;
+    [SerializeField] private GameManager manager;
+    [SerializeField] private Player player;
+    [SerializeField] private GameObject defaultPlayer;
+    [SerializeField] private TrackController trackController;
+    [SerializeField] private Camera cam;
+    private bool flag = false;
     private int tileSize = 30;
     private int activationRange = 5;
+    private GameObject playerGameObject;
 
     public float checkZ;
     public float checkX;
@@ -18,9 +20,12 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        if(player == null){
+            player = defaultPlayer.GetComponent<Player>();
+        }
         player.transform.SetPositionAndRotation(
-        new Vector3((manager.getMapSize() / 2) * tileSize + 15, 0, (manager.getMapSize() / 2) * tileSize + 15),
-        Quaternion.Euler(0, 180, 0));
+            new Vector3((manager.getMapSize() / 2) * tileSize + 15, 0, (manager.getMapSize() / 2) * tileSize + 15),
+            Quaternion.Euler(0, -90, 0));
     }
 
     public void setDebug()
@@ -29,18 +34,15 @@ public class PlayerController : MonoBehaviour
         player.transform.SetPositionAndRotation(
             new Vector3((manager.getMapSize() / 2) * tileSize + 15, 100, (manager.getMapSize() / 2) * tileSize + 15),
             Quaternion.Euler(0, 180, 0));
-        camera.transform.SetPositionAndRotation(
-            new Vector3((manager.getMapSize() / 2) * tileSize + 15, 100, (manager.getMapSize() / 2) * tileSize + 15),
-            Quaternion.Euler(90, 180, 0));
     }
 
     void Update()
     {
-        if(this.transform.localPosition.y < - 2){
-            manager.restart();
+        if(player.transform.localPosition.y < - 2){
+            manager.gameOver();
         }
-        checkZ = this.transform.localPosition.z % tileSize;
-        checkX = this.transform.localPosition.x % tileSize;
+        checkZ = Mathf.Abs(player.transform.localPosition.z) % tileSize;
+        checkX = Mathf.Abs(player.transform.localPosition.x) % tileSize;
         if (flag)
         {
             if (checkZ <= activationRange)
@@ -75,10 +77,10 @@ public class PlayerController : MonoBehaviour
 
     public void restart()
     {
+        flag = true;
+        Vector3 posPlayer = new Vector3((manager.getMapSize() / 2) * tileSize + 15, 0.5f, (manager.getMapSize() / 2) * tileSize + 15);
         player.restart();
-        player.transform.SetPositionAndRotation(
-        new Vector3((manager.getMapSize() / 2) * tileSize + 15, 0, (manager.getMapSize() / 2) * tileSize + 15),
-        Quaternion.Euler(0, 180, 0));
+        player.transform.SetPositionAndRotation(posPlayer, Quaternion.Euler(0, -90, 0));
     }
 
     public void addSpeed(int speed){
@@ -87,5 +89,23 @@ public class PlayerController : MonoBehaviour
 
     public float getAcceleration(){
         return player.getAcceleration();
+    }
+
+    public void addScore(int score){
+        manager.updateScore(score);
+    }
+
+    public void setPlayer(GameObject player){
+        Vector3 pos = new Vector3((manager.getMapSize() / 2) * tileSize + 15, 5, (manager.getMapSize() / 2) * tileSize + 15);
+        cam.transform.parent = this.transform;
+        if(this.player.gameObject != null){
+            Destroy(this.player.gameObject);
+        }
+        playerGameObject = Instantiate(player, pos, Quaternion.Euler(0, -90, 0));
+        this.player = playerGameObject.GetComponent<Player>();
+        this.player.transform.parent = this.transform;
+        cam.transform.parent = this.player.transform;
+        cam.transform.localPosition = new Vector3(0, 2, -3);
+        cam.transform.rotation = Quaternion.Euler(15, -90, 0);
     }
 }

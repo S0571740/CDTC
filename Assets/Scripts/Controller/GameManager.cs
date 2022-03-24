@@ -15,6 +15,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] bool audioOn = false;
     [SerializeField] bool pause = false;
     [SerializeField] bool initialized = false;
+    [SerializeField] GameObject playerGreen;
+    [SerializeField] GameObject playerRed;
+    [SerializeField] GameObject playerBlue;
 
     private int score = 0;
     private Tile nextTile;
@@ -76,13 +79,23 @@ public class GameManager : MonoBehaviour
         return this.nextTile;
     }
 
-    public void startNewGame(bool audioOn, int mapSize)
+    public void startNewGame(bool audioOn, int mapSize, int playerSelected)
     {
         pause = false;
         this.mapSize = mapSize;
         if (audioOn)
         {
-            audioController.GetComponent<AudioSource>().Play();
+        switch (playerSelected)
+        {
+            case -1:
+                playerController.setPlayer(playerBlue);
+                break;
+            case 0:
+                playerController.setPlayer(playerRed);
+                break;
+            case 1:
+                playerController.setPlayer(playerGreen);
+                break;
         }
         init();
     }

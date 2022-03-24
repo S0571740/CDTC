@@ -22,7 +22,9 @@ public class UIController : MonoBehaviour
     [SerializeField] private Button startButton;
     [SerializeField] private List<Tile> tileList;
     [SerializeField] private List<Sprite> spriteList;
+    [SerializeField] private Image selection;
 
+    private int selectedPlayer = 0;
     private int score = 0;
     private Dictionary<Tile, Sprite> tileSpriteDictionary = new Dictionary<Tile, Sprite>();
 
@@ -64,7 +66,7 @@ public class UIController : MonoBehaviour
         startButton.gameObject.SetActive(false);
         resumeButton.gameObject.SetActive(true);
         restartButton.gameObject.SetActive(true);
-        manager.startNewGame(audioOn.isOn, (int)mapSizeSlider.value);
+        manager.startNewGame(audioOn.isOn, (int)mapSizeSlider.value, selectedPlayer);
     }
 
     public void toggleUI(bool active)
@@ -91,5 +93,13 @@ public class UIController : MonoBehaviour
     {
         speedoMeterText.text = ((int)(speed / 3 * 10)).ToString();
         speedoMeterNeedle.rotation = Quaternion.Euler(0, 0, 90 - speed / 3 * 10);
+    }
+
+    public void setPlayer(int player){
+        selectedPlayer = player;
+        Vector3 pos = new Vector3(player * 100, selection.transform.localPosition.y, selection.transform.localPosition.z);
+        Vector3 pos2 = new Vector3(player * 100, selection2.transform.localPosition.y, selection2.transform.localPosition.z);
+        selection.transform.localPosition = pos;
+        selection2.transform.localPosition = pos2;
     }
 }
