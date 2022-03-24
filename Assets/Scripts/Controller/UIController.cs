@@ -7,10 +7,18 @@ public class UIController : MonoBehaviour
 {
     [SerializeField] private GameManager manager;
 
+    [SerializeField] private Canvas optionsCanvas;
+    [SerializeField] private Canvas uiCanvas;
+    [SerializeField] private Canvas gameOverCanvas;
+    [SerializeField] private Image nextTileImage;
+    [SerializeField] private Transform speedoMeterNeedle;
     [SerializeField] private Text scoreText;
+    [SerializeField] private Text gameOverScoreText;
     [SerializeField] private Text mapSizeLabel;
+    [SerializeField] private Text mapSizeLabel2;
     [SerializeField] private Text speedoMeterText;
     [SerializeField] private Slider mapSizeSlider;
+    [SerializeField] private Slider mapSizeSlider2;
     [SerializeField] private Toggle audioOn;
     [SerializeField] private Button restartButton;
     [SerializeField] private Button resumeButton;
@@ -18,6 +26,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private List<Tile> tileList;
     [SerializeField] private List<Sprite> spriteList;
     [SerializeField] private Image selection;
+    [SerializeField] private Image selection2;
 
     private int selectedPlayer = 0;
     private int score = 0;
@@ -47,13 +56,16 @@ public class UIController : MonoBehaviour
 
     public void restart(Tile nextTile)
     {
-        updateScore(this.score * -1);
+        toggleUI(true);
+        toggleGameOver(false);
+        toggleOptions(false);
         updatePreview(nextTile);
     }
 
     public void updateNumber()
     {
         mapSizeLabel.text = mapSizeSlider.value.ToString();
+        mapSizeLabel2.text = mapSizeSlider2.value.ToString();
     }
 
     public void startGame()
@@ -67,6 +79,11 @@ public class UIController : MonoBehaviour
     public void toggleUI(bool active)
     {
         uiCanvas.gameObject.SetActive(active);
+    }
+
+    public void toggleGameOver(bool active)
+    {
+        gameOverCanvas.gameObject.SetActive(active);
     }
 
     public void toggleOptions(bool active)
@@ -96,5 +113,9 @@ public class UIController : MonoBehaviour
         Vector3 pos2 = new Vector3(player * 100, selection2.transform.localPosition.y, selection2.transform.localPosition.z);
         selection.transform.localPosition = pos;
         selection2.transform.localPosition = pos2;
+    }
+
+    public void setGameOverHighscoreText(int highscore){
+        gameOverScoreText.text = highscore.ToString();
     }
 }

@@ -140,4 +140,12 @@ public class GameManager : MonoBehaviour
         uiController.updateScore(this.score);
         playerController.addSpeed(this.score);
     }
+
+    public void gameOver(){
+        uiController.setGameOverHighscoreText(this.score);
+        Time.timeScale = 0f;
+        uiController.toggleGameOver(true);
+        uiController.toggleUI(false);
+    }
+
 }
