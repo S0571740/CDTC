@@ -26,7 +26,21 @@ public class TCross : Tile
 
     public override void placeFacing(int facing)
     {
-        this.setFacing(facing);
+        switch (facing)
+        {
+            case 0:
+                this.setFacing(0);
+                break;
+            case 1:
+                this.setFacing(3);
+                break;
+            case 2:
+                this.setFacing(2);
+                break;
+            case 3:
+                this.setFacing(1);
+                break;
+        }
         List<int> exits = new List<int>();
         exits.Add((facing - 1 + 4) % 4);
         exits.Add((facing + 1 + 4) % 4);

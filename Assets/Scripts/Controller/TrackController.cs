@@ -12,64 +12,23 @@ public class TrackController : MonoBehaviour
     [SerializeField] private Tile[,] track;
     [SerializeField] private GameObject barrier;
     private GameObject barriers;
-    private int oldMapSize;
+    private int previousMapSize;
 
     void Start()
     {
-        this.oldMapSize = manager.getMapSize();
+        this.previousMapSize = manager.getMapSize();
         createBarrier();
         zPos = manager.getMapSize() / 2;
         xPos = manager.getMapSize() / 2;
-        track = new Tile[oldMapSize, oldMapSize];
+        track = new Tile[previousMapSize, previousMapSize];
         lastTile = advancementController.placeInitialCross();
         track[zPos, xPos] = instantiateTile(lastTile);
     }
-
-    void Update()
-    {
-        
-    }
-
-    // private void printTrack()
-    // {
-    //     for (int i = 0; i < maxSize; i++)
-    //     {
-    //         string line = "";
-    //         for (int j = 0; j < maxSize; j++)
-    //         {
-    //             line = line + track[i, j];
-    //         }
-    //         Debug.Log(line);
-    //     }
-    //     string finalLine = "";
-    //     for (int i = 0; i < maxSize; i++)
-    //     {
-    //         finalLine = finalLine + "-";
-    //     }
-    //     Debug.Log(finalLine);
-    // }
 
     public void advance(int direction, Tile nextTile)
     {
         bool next = false;
         if (direction % 2 == 0)
-        {
-            if (lastTile.getExits().Contains(direction))
-            {
-
-                if (direction > 1 && zPos < manager.getMapSize() - 1)
-                {
-                    zPos++;
-                    next = true;
-                }
-                else if (direction < 2 && zPos > 0)
-                {
-                    zPos--;
-                    next = true;
-                }
-            }
-        }
-        else
         {
             if (lastTile.getExits().Contains(direction))
             {
@@ -85,10 +44,30 @@ public class TrackController : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            if (lastTile.getExits().Contains(direction))
+            {
+                if (direction > 1 && zPos < manager.getMapSize() - 1)
+                {
+                    zPos++;
+                    next = true;
+                }
+                else if (direction < 2 && zPos > 0)
+                {
+                    zPos--;
+                    next = true;
+                }
+            }
+        }
         if (next)
         {
             if (track[zPos, xPos] != null)
             {
+                if (track[zPos, xPos].getRandomObject() != null)
+                {
+                    Destroy(track[zPos, xPos].getRandomObject());
+                }
                 Destroy(track[zPos, xPos].gameObject);
             }
             track[zPos, xPos] = instantiateTile(advancementController.placeNextTile(direction, nextTile));
@@ -151,6 +130,7 @@ public class TrackController : MonoBehaviour
         Quaternion rotation = Quaternion.Euler(0, (t.getFacing() + 1) * 90, 0);
         Vector3 v3Tile = new Vector3(xPos * 30 + 15, 0, zPos * 30 + 15);
         Tile tile = Instantiate(t, v3Tile, rotation);
+        tile.placeRandom(t.getFacing());
         tile.gameObject.SetActive(true);
         lastTile = tile;
         manager.prepareNextTile();
@@ -159,11 +139,16 @@ public class TrackController : MonoBehaviour
 
     public void restart()
     {
-        for (int i = 0; i < oldMapSize; i++)
+        for (int i = 0; i < previousMapSize; i++)
         {
-            for (int j = 0; j < oldMapSize; j++)
+            for (int j = 0; j < previousMapSize; j++)
             {
-                if(track[i, j] != null){
+                if (track[i, j] != null)
+                {
+                    if (track[i, j].getRandomObject() != null)
+                    {
+                        Destroy(track[i, j].getRandomObject());
+                    }
                     Destroy(track[i, j].gameObject);
                 }
             }
@@ -174,6 +159,6 @@ public class TrackController : MonoBehaviour
         zPos = manager.getMapSize() / 2;
         lastTile = advancementController.placeInitialCross();
         track[zPos, xPos] = instantiateTile(lastTile);
-        this.oldMapSize = manager.getMapSize();
+        this.previousMapSize = manager.getMapSize();
     }
 }
