@@ -781,7 +781,7 @@ GameObject:
   - component: {fileID: 4520067531723264044}
   - component: {fileID: 3443414042880754640}
   m_Layer: 0
-  m_Name: LongCurve
+  m_Name: ZZZLongCurve
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
