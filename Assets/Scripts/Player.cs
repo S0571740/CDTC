@@ -5,11 +5,8 @@ using System;
 
 public class Player : MonoBehaviour
 {
-
-
     [SerializeField] private Rigidbody rigidBody;
     [SerializeField] private Transform car;
-
     [SerializeField] private float acceleration;
     private float steering;
     private float steeringRange = 90f;

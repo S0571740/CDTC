@@ -6,18 +6,8 @@ public class AdvancementController : MonoBehaviour
 {
 
     [SerializeField] private List<Tile> tiles;
+    [SerializeField] private Tile debugTile;
     [SerializeField] private Cross cross;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public Tile placeNextTile(int facing, Tile nextTile){
         nextTile.placeFacing(facing);
@@ -31,6 +21,7 @@ public class AdvancementController : MonoBehaviour
 
     public Tile getNextTile(){
         Tile nextTile = tiles[Random.Range(0, tiles.Count)];
+        // Tile nextTile = debugTile;
         nextTile.placeFacing(0);
         return nextTile;
     }

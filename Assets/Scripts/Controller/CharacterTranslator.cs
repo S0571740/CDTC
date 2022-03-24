@@ -1,8 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
-class CharacterTranslator{
+public class CharacterTranslator{
 
     public static char LEFT_RIGHT = '\u2500';
     public static char TOP_BOTTOM = '\u2502';

@@ -98,7 +98,8 @@ public class TrackController : MonoBehaviour
 
     private void createBarrier()
     {
-        if(barriers != null){
+        if (barriers != null)
+        {
             Destroy(barriers);
         }
         barriers = new GameObject("Barriers");
