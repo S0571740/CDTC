@@ -7,12 +7,7 @@ public class UIController : MonoBehaviour
 {
     [SerializeField] private GameManager manager;
 
-    [SerializeField] Canvas optionsCanvas;
-    [SerializeField] Canvas uiCanvas;
-    [SerializeField] Image nextTileImage;
-    [SerializeField] Transform speedoMeterNeedle;
-    [SerializeField] Text tileText;
-    [SerializeField] Text scoreText;
+    [SerializeField] private Text scoreText;
     [SerializeField] private Text mapSizeLabel;
     [SerializeField] private Text speedoMeterText;
     [SerializeField] private Slider mapSizeSlider;

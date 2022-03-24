@@ -57,6 +57,7 @@ public class GameManager : MonoBehaviour
 
     public void restart()
     {
+        updateScore(-(this.score));
         playerController.restart();
         trackController.restart();
         uiController.restart(nextTile);
@@ -81,6 +82,7 @@ public class GameManager : MonoBehaviour
 
     public void startNewGame(bool audioOn, int mapSize, int playerSelected)
     {
+        updateScore(-(this.score));
         pause = false;
         this.mapSize = mapSize;
         if (audioOn)
@@ -129,7 +131,7 @@ public class GameManager : MonoBehaviour
     public void updateScore(int score)
     {
         this.score += score;
-        uiController.updateScore(score);
-        playerController.addSpeed(score);
+        uiController.updateScore(this.score);
+        playerController.addSpeed(this.score);
     }
 }
