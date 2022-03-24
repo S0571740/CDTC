@@ -34,17 +34,23 @@ public class UIController : MonoBehaviour
 
     void Start()
     {
-        for(int i = 0; i < tileList.Count; i++){
-            tileSpriteDictionary.Add(tileList[i], spriteList.Find(sprite => sprite.name.Contains(tileList[i].name)));
-        }
         mapSizeLabel.text = mapSizeSlider.value.ToString();
         startButton.gameObject.SetActive(true);
         resumeButton.gameObject.SetActive(false);
         restartButton.gameObject.SetActive(false);
     }
 
+    private void initMap(){
+        for(int i = 0; i < tileList.Count; i++){
+            tileSpriteDictionary.Add(tileList[i], spriteList.Find(sprite => sprite.name.Contains(tileList[i].name)));
+        }
+    }
+
     public void updatePreview(Tile nextTile)
     {
+        if(tileSpriteDictionary.Count == 0){
+            initMap();
+        }
         nextTileImage.sprite = tileSpriteDictionary[nextTile];
     }
 
