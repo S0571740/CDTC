@@ -8,37 +8,23 @@ public class MainMenuController : MonoBehaviour
 {
 
     [SerializeField] private GameObject mainMenu;
-
-    void Start()
-    {
-        
-    }
+    [SerializeField] private GameObject tutorial;
 
     public void newGame()
     {
         SceneManager.LoadScene("Game", LoadSceneMode.Single);
     }
 
-    public void options()
-    {
-        mainMenu.SetActive(false);
-    }
-
-
-
     public void back()
     {
         mainMenu.SetActive(true);
+        tutorial.SetActive(false);
     }
 
-    public void save()
+    public void openTutorial()
     {
-
-    }
-
-    public void highScores()
-    {
-
+        mainMenu.SetActive(false);
+        tutorial.SetActive(true);
     }
 
     public void quit()
