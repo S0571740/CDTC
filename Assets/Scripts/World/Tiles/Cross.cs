@@ -25,4 +25,10 @@ public class Cross : Tile
     {
         return this.score;
     }
+
+    public override void placeRandom(int facing){}
+    public override GameObject getRandomObject(){
+        return null;
+    }
+
 }

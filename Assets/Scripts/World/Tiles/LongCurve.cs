@@ -22,4 +22,11 @@ public class LongCurve : Tile
     {
         return this.score;
     }
+
+    public override void placeRandom(int facing){
+    }
+
+    public override GameObject getRandomObject(){
+        return null;
+    }
 }

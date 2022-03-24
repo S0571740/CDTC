@@ -5,8 +5,10 @@ using UnityEngine;
 public class ShortLeftCurve : Tile
 {
     private int score = 40;
+    [SerializeField] private GameObject randomObject;
 
-    public override char getCharacter(){
+    public override char getCharacter()
+    {
         if (facing == 0)
         {
             return CharacterTranslator.LEFT_BOTTOM;
@@ -33,5 +35,26 @@ public class ShortLeftCurve : Tile
     public override int getScore()
     {
         return this.score;
+    }
+
+    public override void placeRandom(int facing)
+    {
+        if (Random.Range(0, 100) > 80)
+        {
+            Vector3 v3 = randomObject.transform.position;
+            GameObject random = ObstacleController.getRandomObject();
+            if(random.name.Equals("WreckingBall")){
+                v3.y += 6f;
+            }
+            else{
+                v3.y += 0.5f;
+            }
+            randomObject = Instantiate(random, v3, Quaternion.Euler(0, facing * 90, 0));
+            randomObject.SetActive(true);
+        }
+    }
+
+    public override GameObject getRandomObject(){
+        return randomObject;
     }
 }

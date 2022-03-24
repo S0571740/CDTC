@@ -26,6 +26,9 @@ public abstract class Tile : MonoBehaviour
     /// <param name="facing">Direction the tile is facing. 0 = North, 1 = East, 2 = South, 3 = West</param>
     public abstract void placeFacing(int facing);
 
+    public abstract void placeRandom(int facing);
+    public abstract GameObject getRandomObject();
+    
     protected void setFacing(int facing)
     {
         this.facing = facing;

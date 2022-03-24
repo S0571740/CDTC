@@ -5,6 +5,7 @@ using UnityEngine;
 public class Slalom : Tile
 {
     private int score = 40;
+    [SerializeField] private GameObject randomObject;
 
     public override char getCharacter()
     {
@@ -22,9 +23,31 @@ public class Slalom : Tile
         exits.Add(facing);
         setExits(exits);
     }
-    
+
     public override int getScore()
     {
         return this.score;
+    }
+
+    public override void placeRandom(int facing)
+    {
+        if (Random.Range(0, 100) > 80)
+        {
+            int rotation = facing + 1;
+            Vector3 v3 = randomObject.transform.position;
+            GameObject random = ObstacleController.getRandomObject();
+            if(random.name.Equals("WreckingBall")){
+                v3.y += 6f;
+            }
+            else{
+                v3.y += 0.5f;
+            }
+            randomObject = Instantiate(random, v3, Quaternion.Euler(0, rotation * 90, 0));
+            randomObject.SetActive(true);
+        }
+    }
+
+    public override GameObject getRandomObject(){
+        return randomObject;
     }
 }
