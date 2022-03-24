@@ -85,8 +85,14 @@ public class GameManager : MonoBehaviour
         updateScore(-(this.score));
         pause = false;
         this.mapSize = mapSize;
+        audioController.switchTrack();
         if (audioOn)
         {
+            audioController.enable();
+        }
+        else{
+            audioController.disable();
+        }
         switch (playerSelected)
         {
             case -1:
