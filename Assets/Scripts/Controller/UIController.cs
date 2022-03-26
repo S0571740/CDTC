@@ -20,6 +20,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private Slider mapSizeSlider;
     [SerializeField] private Slider mapSizeSlider2;
     [SerializeField] private Toggle audioOn;
+    [SerializeField] private Toggle audioOn2;
     [SerializeField] private Button restartButton;
     [SerializeField] private Button resumeButton;
     [SerializeField] private Button startButton;
@@ -74,12 +75,21 @@ public class UIController : MonoBehaviour
         mapSizeLabel2.text = mapSizeSlider2.value.ToString();
     }
 
-    public void startGame()
+    public void startGame(string gameoverOrEscape)
     {
         startButton.gameObject.SetActive(false);
         resumeButton.gameObject.SetActive(true);
         restartButton.gameObject.SetActive(true);
-        manager.startNewGame(audioOn.isOn, (int)mapSizeSlider.value, selectedPlayer);
+        if(gameoverOrEscape.Equals("gameover")){
+            manager.startNewGame(audioOn2.isOn, (int)mapSizeSlider2.value, selectedPlayer);
+        }
+        else{
+            manager.startNewGame(audioOn.isOn, (int)mapSizeSlider.value, selectedPlayer);
+        }
+    }
+
+    public void setAudioOn(){
+        audioOn.isOn = audioOn2.isOn;
     }
 
     public void toggleUI(bool active)
